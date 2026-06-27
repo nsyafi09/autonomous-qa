@@ -21,6 +21,18 @@ export class UiActions {
     });
   }
 
+  async select(name: string, locator: Locator, value: string): Promise<void> {
+    await test.step(`Select: ${name} → ${value}`, async () => {
+      await locator.selectOption(value);
+    });
+  }
+
+  async hover(name: string, locator: Locator): Promise<void> {
+    await test.step(`Hover: ${name}`, async () => {
+      await locator.hover();
+    });
+  }
+
   async getText(locator: Locator): Promise<string> {
     return (await locator.textContent()) ?? '';
   }

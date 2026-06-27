@@ -2,9 +2,9 @@ import { Page } from '@playwright/test';
 import { BasePage } from '../core/BasePage';
 
 export class LoginPage extends BasePage {
-  private readonly usernameInput = this.page.locator('#username');
-  private readonly passwordInput = this.page.locator('#password');
-  private readonly loginButton = this.page.locator('button[type="submit"]');
+  private readonly usernameInput = this.page.getByLabel('Username');
+  private readonly passwordInput = this.page.getByLabel('Password');
+  private readonly loginButton = this.page.getByRole('button', { name: /login/i });
   private readonly flashMessage = this.page.locator('#flash');
 
   constructor(page: Page) {

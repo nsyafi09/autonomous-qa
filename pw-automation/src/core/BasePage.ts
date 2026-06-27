@@ -8,6 +8,6 @@ export abstract class BasePage {
 
   constructor(protected page: Page) {
     this.uiActions = new UiActions(page);
-    this.assertions = new Assertions();
+    this.assertions = new Assertions(page);
   }
 }
