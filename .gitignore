@@ -12,7 +12,7 @@ pw-automation/playwright-report/*
 pw-automation/test-results/*
 # !pw-automation/test-results/.gitkeep
 
-# Generated AI output — keep folder, ignore contents
+# Model output
 generated/scenarios/*
 !generated/scenarios/.gitkeep
 
