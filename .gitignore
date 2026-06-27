@@ -9,3 +9,6 @@ pw-automation/playwright-report/
 pw-automation/blob-report/
 pw-automation/playwright/.cache/
 pw-automation/playwright/.auth/
+
+# 
+.DS_Store
