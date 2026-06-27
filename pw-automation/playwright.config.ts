@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { env } from './config/env';
 
 export default defineConfig({
   testDir: './tests',
@@ -11,9 +12,9 @@ export default defineConfig({
 
   fullyParallel: true,
 
-  retries: process.env.CI ? 2 : 0,
+  forbidOnly: env.isCI,
 
-  workers: process.env.CI ? 1 : undefined,
+  retries: env.isCI ? 2 : 0,
 
   reporter: [
     ['list'],
@@ -21,10 +22,12 @@ export default defineConfig({
   ],
 
   use: {
-    baseURL: 'https://the-internet.herokuapp.com',
+    baseURL: env.baseURL,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    actionTimeout: 10_000,
+    navigationTimeout: 15_000,
   },
 
   projects: [
