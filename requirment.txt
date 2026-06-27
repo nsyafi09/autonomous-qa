@@ -3,4 +3,4 @@ node
 
 # Used tools / frameworks / libraries
 cd pw-automation && npm init playwright@latest
-npx playwright install
+# npx playwright install
