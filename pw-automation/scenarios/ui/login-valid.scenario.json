@@ -1,0 +1,14 @@
+{
+  "id": "login-valid",
+  "name": "Valid user can login successfully",
+  "description": "Verifies that a valid user can login and see the secure area.",
+  "tags": ["smoke", "login"],
+  "steps": [
+    { "action": "open", "target": "/login" },
+    { "action": "input", "target": "login.username", "value": "tomsmith" },
+    { "action": "input", "target": "login.password", "value": "SuperSecretPassword!" },
+    { "action": "click", "target": "login.submitButton" },
+    { "action": "verifyText", "target": "login.flashMessage", "expected": "You logged into a secure area!" },
+    { "action": "verifyVisible", "target": "login.secureAreaHeading" }
+  ]
+}

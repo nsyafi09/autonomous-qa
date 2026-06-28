@@ -4,11 +4,19 @@ git-ref.txt
 
 # Playwright
 pw-automation/node_modules/
-pw-automation/test-results/
-pw-automation/playwright-report/
 pw-automation/blob-report/
 pw-automation/playwright/.cache/
 pw-automation/playwright/.auth/
+pw-automation/playwright-report/*
+# !pw-automation/playwright-report/.gitkeep
+pw-automation/test-results/*
+# !pw-automation/test-results/.gitkeep
 
-# 
+# Model output
+generated/scenarios/*
+!generated/scenarios/.gitkeep
+
+# Env files — commit .env.example, never .env
+pw-automation/.env
+
 .DS_Store
