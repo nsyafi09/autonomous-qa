@@ -1,0 +1,11 @@
+{
+  "id": "dropdown-select",
+  "name": "User can select a dropdown option",
+  "description": "Verifies a dropdown option can be selected and the value is persisted. Target resolves via CSS id selector from the page map.",
+  "tags": ["ui", "dropdown"],
+  "steps": [
+    { "action": "open", "target": "/dropdown" },
+    { "action": "select", "target": "dropdown.dropdown", "value": "1" },
+    { "action": "verifyValue", "target": "dropdown.dropdown", "expected": "1" }
+  ]
+}
