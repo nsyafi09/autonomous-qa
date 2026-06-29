@@ -1,18 +1,30 @@
+/**
+ * Executes a WebScenario end-to-end against a live browser page.
+ * Connects: scenario JSON → TestDataResolver (refs) → PageMapLocatorRegistry (locators) → UiActions/Assertions.
+ *
+ * Each step is resolved (valueRef/expectedRef filled) before dispatch.
+ * Direct value/expected always wins over a ref.
+ */
+
+import path from 'path';
 import { Page, test } from '@playwright/test';
 import { UiActions } from '../../src/core/UiActions';
 import { Assertions } from '../../src/core/Assertions';
-import { LocatorRegistry } from '../registry/LocatorRegistry';
+import { PageMapLocatorRegistry } from '../registry/PageMapLocatorRegistry';
 import { WebScenario, WebScenarioStep } from '../types/WebScenario';
+import { TestDataResolver } from '../data/TestDataResolver';
 
 export class WebScenarioRunner {
   private readonly uiActions: UiActions;
   private readonly assertions: Assertions;
-  private readonly registry: LocatorRegistry;
+  private readonly registry: PageMapLocatorRegistry;
+  private readonly dataResolver: TestDataResolver;
 
   constructor(private readonly page: Page) {
     this.uiActions = new UiActions(page);
     this.assertions = new Assertions(page);
-    this.registry = new LocatorRegistry(page);
+    this.registry = new PageMapLocatorRegistry(page);
+    this.dataResolver = TestDataResolver.load(path.join(__dirname, '..', '..', 'test-data'));
   }
 
   async run(scenario: WebScenario): Promise<void> {
@@ -23,7 +35,17 @@ export class WebScenarioRunner {
     });
   }
 
-  private async runStep(step: WebScenarioStep): Promise<void> {
+  // Fills value/expected from data refs if not set already directly
+  private resolveStep(raw: WebScenarioStep): WebScenarioStep {
+    return {
+      ...raw,
+      value: raw.value ?? (raw.valueRef ? this.dataResolver.get(raw.valueRef) : undefined),
+      expected: raw.expected ?? (raw.expectedRef ? this.dataResolver.get(raw.expectedRef) : undefined),
+    };
+  }
+
+  private async runStep(rawStep: WebScenarioStep): Promise<void> {
+    const step = this.resolveStep(rawStep);
     switch (step.action) {
       case 'open':
         await this.uiActions.gotoPage(step.target);
@@ -109,6 +131,7 @@ export class WebScenarioRunner {
     }
   }
 
+  // TypeScript assertion guards —> narrow step type so downstream code has a guaranteed non-undefined field
   private requireValue(step: WebScenarioStep): asserts step is WebScenarioStep & { value: string } {
     if (step.value === undefined) {
       throw new Error(`Action "${step.action}" requires "value". Target: "${step.target}"`);

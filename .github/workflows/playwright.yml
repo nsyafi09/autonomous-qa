@@ -23,6 +23,11 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Scan pages to generate locator maps
+      run: |
+        npm run scan -- /login
+        npm run scan -- /checkboxes
+        npm run scan -- /dropdown
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@v4

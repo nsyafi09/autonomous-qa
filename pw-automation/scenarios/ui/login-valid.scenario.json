@@ -5,8 +5,8 @@
   "tags": ["smoke", "login"],
   "steps": [
     { "action": "open", "target": "/login" },
-    { "action": "input", "target": "login.username", "value": "tomsmith" },
-    { "action": "input", "target": "login.password", "value": "SuperSecretPassword!" },
+    { "action": "input", "target": "login.username", "valueRef": "users.valid.username" },
+    { "action": "input", "target": "login.password", "valueRef": "users.valid.password" },
     { "action": "click", "target": "login.submitButton" },
     { "action": "verifyText", "target": "login.flashMessage", "expected": "You logged into a secure area!" },
     { "action": "verifyVisible", "target": "login.secureAreaHeading" }
