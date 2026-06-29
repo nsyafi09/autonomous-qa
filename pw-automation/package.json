@@ -10,7 +10,7 @@
     "test:debug": "playwright test --debug",
     "test:smoke": "playwright test --grep @smoke",
     "report": "playwright show-report",
-    "scan": "tsx tools/page-mapper/pageMapper.ts"
+    "scan": "tsx tools/page-mapper/PageMapper.ts"
   },
   "keywords": [],
   "author": "",

@@ -1,10 +1,17 @@
+/**
+ * NOTE: This is a fallback for now, in the future, there should only be ONE dynamically available registery.
+ * --> In the meantime this is a fallback
+ * 
+ * Hardcoded fallback registry for targets not present in any page map.
+ * Used for dynamic elements (e.g. flash messages) and cross-page targets
+ * that aren't on the page at scan time.
+ *
+ * Target naming: page.element (e.g. login.flashMessage).
+ */
+
 import { Locator, Page } from '@playwright/test';
 
-// Maps human/AI-readable target names to Playwright locators.
-// Naming convention: page.element (e.g. login.username, login.submitButton)
-// Intentionally mirrors LoginPage locators — this is the AI-facing interface.
-// DOM scanner (Milestone 4) will eventually populate this automatically.
-export class LocatorRegistry {
+export class FallbackLocatorRegistry {
   constructor(private readonly page: Page) {}
 
   get(target: string): Locator {
@@ -19,7 +26,7 @@ export class LocatorRegistry {
     const locator = locators[target];
 
     if (!locator) {
-      throw new Error(`Unknown locator target: "${target}". Add it to LocatorRegistry.`);
+      throw new Error(`Unknown locator target: "${target}". Scan the page or add it to FallbackLocatorRegistry.`);
     }
 
     return locator;
