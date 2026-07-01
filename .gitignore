@@ -1,8 +1,14 @@
-# References stuff
+### General stuff
+.DS_Store
+
+### References stuff
 /doc-ref
 git-ref.txt
 
-# Playwright
+### For future 
+autonomous-qa.config.json
+
+### Playwright
 pw-automation/node_modules/
 pw-automation/blob-report/
 pw-automation/playwright/.cache/
@@ -11,14 +17,27 @@ pw-automation/playwright-report/*
 # !pw-automation/playwright-report/.gitkeep
 pw-automation/test-results/*
 # !pw-automation/test-results/.gitkeep
+pw-automation/scenarios/ui/*.json
+!pw-automation/scenarios/ui/sample-*.json
 
-# Model output
+### ai-engine
+ai-engine/*
+!ai-engine/.gitkeep
+# ai-engine/__pycache__/
+# ai-engine/.venv/
+
+### Model (Engine) output
 generated/scenarios/*
 !generated/scenarios/.gitkeep
 generated/page-maps/*
 !generated/page-maps/.gitkeep
+generated/ai-context/*
+!generated/ai-context/.gitkeep
+generated/qa-docs/*
+!generated/qa-docs/test-plans/.gitkeep
+!generated/qa-docs/test-designs/.gitkeep
+!generated/qa-docs/test-ideas/.gitkeep
+!generated/qa-docs/reviews/.gitkeep
 
-# Env files — commit .env.example, never .env
+### Env files — commit .env.example, never .env
 pw-automation/.env
-
-.DS_Store
