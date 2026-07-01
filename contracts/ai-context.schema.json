@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ai-context.schema.json",
+  "title": "AiContext",
+  "description": "The controlled contract passed to the AI engine — derived from PageMap + test-data. AI only sees this, never raw PageMap or Playwright internals.",
+  "type": "object",
+  "required": ["pageName", "url", "detectedFeatures", "availableTargets", "availableDataRefs", "allowedActions", "rules"],
+  "properties": {
+    "pageName": { "type": "string" },
+    "url":      { "type": "string", "format": "uri" },
+    "detectedFeatures": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "availableTargets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "type", "humanName"],
+        "properties": {
+          "key":       { "type": "string", "description": "e.g. login.username — used as step target" },
+          "type":      { "type": "string" },
+          "humanName": { "type": "string" }
+        }
+      }
+    },
+    "availableDataRefs": {
+      "type": "array",
+      "items": { "type": "string", "description": "dot-notation refs e.g. users.valid.username" }
+    },
+    "allowedActions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "rules": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
